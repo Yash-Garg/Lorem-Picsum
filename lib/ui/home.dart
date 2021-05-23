@@ -16,41 +16,26 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       body: Center(
-        child: Wrap(
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Center(
-                  child: CachedNetworkImage(
-                    imageUrl: getRandomPic(
-                      MediaQuery.of(context).size.height,
-                      MediaQuery.of(context).size.width,
-                    ),
-                    placeholder: (context, url) =>
-                        new CircularProgressIndicator(),
-                    errorWidget: (context, url, error) => Text(
-                      'Error Retrieving Image',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ],
+        child: Container(
+          child: Padding(
+            padding: EdgeInsets.only(left: 15, right: 15),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: CachedNetworkImage(
+                imageUrl: getRandomPic(),
+                placeholder: (context, url) => CircularProgressIndicator(),
+                errorWidget: (context, url, error) =>
+                    Text('Error Retreiving Image'),
+                fit: BoxFit.contain,
+              ),
             ),
-          ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
-            getRandomPic(
-              MediaQuery.of(context).size.height,
-              MediaQuery.of(context).size.width,
-            );
+            getRandomPic();
           });
         },
         child: Icon(

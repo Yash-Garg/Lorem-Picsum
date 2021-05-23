@@ -7,9 +7,8 @@ String generateRandomString(int len) {
   return List.generate(len, (index) => _chars[r.nextInt(_chars.length)]).join();
 }
 
-String getRandomPic(double height, double width) {
+String getRandomPic() {
   String randSeed = generateRandomString(5);
-  String endpoint =
-      'https://picsum.photos/seed/$randSeed/${width.toInt()}/${height.toInt()}';
+  String endpoint = 'https://picsum.photos/seed/$randSeed/1080/1400';
   return endpoint;
 }
