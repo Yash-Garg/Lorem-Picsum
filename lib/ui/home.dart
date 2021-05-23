@@ -14,6 +14,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text('Lorem Picsum'),
         centerTitle: true,
+        brightness: Brightness.dark,
       ),
       body: Center(
         child: Container(
