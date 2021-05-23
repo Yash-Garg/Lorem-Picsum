@@ -30,7 +30,14 @@ class _HomePageState extends State<HomePage> {
                     ),
                     placeholder: (context, url) =>
                         new CircularProgressIndicator(),
-                    errorWidget: (context, url, error) => new Icon(Icons.error),
+                    errorWidget: (context, url, error) => Text(
+                      'Error Retrieving Image',
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    fit: BoxFit.cover,
                   ),
                 ),
               ],
