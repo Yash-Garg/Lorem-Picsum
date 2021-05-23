@@ -24,8 +24,7 @@ class _HomePageState extends State<HomePage> {
                 Center(
                   child: CachedNetworkImage(
                     imageUrl: getRandomPic(
-                      MediaQuery.of(context).size.height -
-                          AppBar().preferredSize.height,
+                      MediaQuery.of(context).size.height,
                       MediaQuery.of(context).size.width,
                     ),
                     placeholder: (context, url) =>
@@ -49,8 +48,7 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {
           setState(() {
             getRandomPic(
-              MediaQuery.of(context).size.height -
-                  AppBar().preferredSize.height,
+              MediaQuery.of(context).size.height,
               MediaQuery.of(context).size.width,
             );
           });
