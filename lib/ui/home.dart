@@ -19,15 +19,14 @@ class _HomePageState extends State<HomePage> {
         child: Container(
           child: Padding(
             padding: EdgeInsets.only(left: 15, right: 15),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: CachedNetworkImage(
-                imageUrl: getRandomPic(),
-                placeholder: (context, url) => CircularProgressIndicator(),
-                errorWidget: (context, url, error) =>
-                    Text('Error Retreiving Image'),
-                fit: BoxFit.contain,
+            child: CachedNetworkImage(
+              imageUrl: getRandomPic(),
+              placeholder: (context, url) => CircularProgressIndicator(),
+              errorWidget: (context, url, error) => Text(
+                'Error Retreiving Image',
+                style: TextStyle(fontSize: 25),
               ),
+              fit: BoxFit.contain,
             ),
           ),
         ),
