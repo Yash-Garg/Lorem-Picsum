@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:picsum/helpers/image_helper.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'image_helper.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,17 +11,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String lastURL = getRandomPic();
+  String? lastURL;
 
-  Future _saveLastURL(String url) async {
+  Future<void> _saveLastURL(String url) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('lastURL', url);
   }
 
-  Future _getLastSavedURL() async {
+  Future<void> _getLastSavedURL() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      lastURL = prefs.getString('lastURL')!;
+      lastURL = prefs.getString('lastURL') ?? getRandomPic();
+      _saveLastURL(lastURL!);
     });
   }
 
@@ -35,21 +38,23 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text('Lorem Picsum'),
         centerTitle: true,
-        brightness: Brightness.dark,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: Center(
         child: Container(
           child: Padding(
             padding: EdgeInsets.only(left: 15, right: 15),
-            child: CachedNetworkImage(
-              imageUrl: lastURL,
-              placeholder: (context, url) => CircularProgressIndicator(),
-              errorWidget: (context, url, error) => Text(
-                'Error Retreiving Image',
-                style: TextStyle(fontSize: 25),
-              ),
-              fit: BoxFit.contain,
-            ),
+            child: lastURL != null
+                ? CachedNetworkImage(
+                    imageUrl: lastURL!,
+                    placeholder: (context, url) => CircularProgressIndicator(),
+                    errorWidget: (context, url, error) => Text(
+                      'Error Retreiving Image',
+                      style: TextStyle(fontSize: 25),
+                    ),
+                    fit: BoxFit.contain,
+                  )
+                : CircularProgressIndicator(),
           ),
         ),
       ),
@@ -57,7 +62,7 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {
           setState(() {
             lastURL = getRandomPic();
-            _saveLastURL(lastURL);
+            _saveLastURL(lastURL!);
           });
         },
         child: Icon(

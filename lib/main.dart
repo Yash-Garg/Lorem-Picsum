@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:picsum/ui/home.dart';
+
+import 'home.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
